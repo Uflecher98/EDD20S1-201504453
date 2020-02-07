@@ -1,14 +1,16 @@
 
 #include<iostream>
 #include<stdlib.h>
+#include<string>
 using namespace std;
 
 struct Nodo{
-    int dato;
+    int carnet;
+    string nombre;
     Nodo *siguiente;
 };
 
-void Insertar(Nodo *&, int);
+void Insertar(Nodo *&, int, string);
 void Mostrar(Nodo *);
 void Buscar(Nodo *, int);
 void Eliminar (Nodo *&, int);
@@ -19,6 +21,7 @@ void Eliminar (Nodo *&, int);
 int main (){
   
     int elemento;
+    string nombre;
     int resp;
     do{
       
@@ -36,9 +39,11 @@ int main (){
       
       switch(resp){
           case 1:
-            cout<<" Ingresae elemento";
+            cout<<" Ingresae carné";
             cin>>elemento;
-            Insertar(lista,elemento);
+            cout<<" Ingresar nombre";
+            cin>>nombre;
+            Insertar(lista,elemento, nombre);
             cout<<"\n";
              
           break;
@@ -55,7 +60,7 @@ int main (){
              
              break;
           case 3:
-          cout<<"\nIngrese numero a buscar";
+          cout<<"\nIngrese carnet a buscar";
           cin>>elemento;
           Buscar(lista, elemento);
           cout<<"\n";
@@ -69,14 +74,14 @@ int main (){
     return 0;
 }
 
-void Insertar(Nodo *&lista, int n ){
+void Insertar(Nodo *&lista, int n, string nombre){
     Nodo *nuevo = new Nodo();
-    nuevo -> dato = n;
-
+    nuevo -> carnet = n;
+    nuevo ->nombre = nombre;
     Nodo *a1 = lista;
     Nodo *a2;
 
-    while ((a1 != NULL) && (a1->dato < n)){
+    while ((a1 != NULL) && (a1->carnet < n)){
         a2 =  a1;
         a1 = a1->siguiente;
     }
@@ -96,7 +101,7 @@ void Mostrar(Nodo *lista){
     Nodo *actual = new Nodo();
     actual = lista;
     while(actual != NULL){
-        cout<<actual->dato<<" -> ";
+        cout<<actual->carnet<<", "<<actual->nombre<<" --->";
         actual = actual->siguiente;
     }
 }
@@ -107,9 +112,10 @@ void Buscar(Nodo *lista, int n){
     Nodo *actual = new Nodo();
     actual = lista;
 
-    while((actual != NULL) && (actual->dato <= n)){
-        if (actual -> dato == n){
+    while((actual != NULL) && (actual->carnet <= n)){
+        if (actual -> carnet == n){
             x= true;
+            cout<<"El nombre es: "<<actual->nombre;
         }
         actual = actual ->siguiente;
     }
@@ -128,7 +134,7 @@ void Eliminar(Nodo *&lista, int n){
         Nodo *ante = NULL;
         aux1 = lista;
         
-        while ((aux1 !=NULL)&&(aux1->dato != n)){
+        while ((aux1 !=NULL)&&(aux1->carnet != n)){
             ante = aux1;
             aux1 = aux1->siguiente;
         }
